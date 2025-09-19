@@ -284,7 +284,7 @@ export default function JobSearchForm() {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               type="submit"
-              className="bg-gradient-to-r from-primary to-purple-600 text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl focus:ring-4 focus:ring-primary/50"
+              className="bg-gradient-to-r from-primary to-amber-600 text-black px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl focus:ring-4 focus:ring-primary/50"
               data-testid="button-search"
             >
               <Search className="mr-2" size={20} />
