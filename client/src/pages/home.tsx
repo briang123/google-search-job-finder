@@ -91,6 +91,24 @@ export default function Home() {
           </motion.div>
         </motion.section>
       </main>
+
+      {/* Footer */}
+      <footer className="py-8 border-t border-border bg-card">
+        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
+          <p>This app was created by Brian Gaines to help others search and find jobs.</p>
+          <p className="mt-2">
+            Connect with me on {' '}
+            <a 
+              href="https://www.linkedin.com/in/briangaines/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary hover:underline transition-colors duration-200"
+            >
+              LinkedIn
+            </a>.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
