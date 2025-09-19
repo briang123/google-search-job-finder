@@ -33,7 +33,7 @@ export default function Home() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
-            Search Jobs Across 44+ Platforms
+            Search Jobs Across 43+ Platforms
           </h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
             Advanced Google search integration to find opportunities across all major job boards. 
