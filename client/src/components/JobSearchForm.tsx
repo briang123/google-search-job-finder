@@ -71,7 +71,10 @@ export default function JobSearchForm() {
   const onSubmit = (data: FormData) => {
     try {
       const searchUrl = buildGoogleSearchUrl(data);
-      window.open(searchUrl, '_blank');
+      const newWindow = window.open(searchUrl, '_blank', 'noopener,noreferrer');
+      if (newWindow) {
+        newWindow.opener = null;
+      }
       
       toast({
         title: "Search opened",
