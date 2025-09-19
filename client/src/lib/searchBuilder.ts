@@ -34,7 +34,19 @@ export function buildGoogleSearchUrl(data: SearchData): string {
   
   // Add timeline filter if specified
   if (timeline) {
-    searchUrl += `&tbs=qdr:${timeline}`;
+    // Handle both old format (h, d, w, m) and new custom format (h2, d5, w3, m6)
+    let timelineParam = timeline;
+    
+    // If it's just a single letter, it's the old preset format
+    if (timeline.length === 1 && ['h', 'd', 'w', 'm'].includes(timeline)) {
+      timelineParam = timeline;
+    }
+    // If it's a custom format like h2, d5, w3, m6, use it directly
+    else if (timeline.match(/^[hdwm]\d+$/)) {
+      timelineParam = timeline;
+    }
+    
+    searchUrl += `&tbs=qdr:${timelineParam}`;
   }
   
   // Add region filter if specified
