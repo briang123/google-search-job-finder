@@ -10,27 +10,33 @@ interface SearchData {
 export function buildGoogleSearchUrl(data: SearchData): string {
   const { jobTitle, selectedSites, locations, remoteWork, timeline, region } = data;
 
-  // Start with job title in quotes for exact phrase matching
-  let query = `"${jobTitle}"`;
+  // Build the main search query
+  let searchTerms = [jobTitle];
   
-  // Add site operators for selected job sites
-  if (selectedSites.length > 0) {
-    const siteQuery = selectedSites.map(site => `site:${site}`).join(' OR ');
-    query += ` (${siteQuery})`;
-  }
-  
-  // Add location parameters
+  // Add location terms
   if (remoteWork) {
-    query += ' (remote OR "work from home" OR "work remotely")';
+    searchTerms.push('remote');
   }
   
   if (locations.length > 0) {
-    const locationQuery = locations.map(loc => `"${loc}"`).join(' OR ');
-    query += ` (${locationQuery})`;
+    searchTerms = searchTerms.concat(locations);
   }
 
-  // Build the base Google search URL
-  let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+  // If we have only one site, use as_sitesearch, otherwise use site operators in the query
+  let searchUrl;
+  if (selectedSites.length === 1) {
+    // Use advanced search format for single site
+    searchUrl = `https://www.google.com/search?as_q=${encodeURIComponent(searchTerms.join(' '))}`;
+    searchUrl += `&as_sitesearch=${encodeURIComponent(selectedSites[0])}`;
+  } else if (selectedSites.length > 1) {
+    // Use site operators for multiple sites
+    const siteQuery = selectedSites.map(site => `site:${site}`).join(' OR ');
+    const fullQuery = `${searchTerms.join(' ')} (${siteQuery})`;
+    searchUrl = `https://www.google.com/search?as_q=${encodeURIComponent(fullQuery)}`;
+  } else {
+    // No sites selected, just search terms
+    searchUrl = `https://www.google.com/search?as_q=${encodeURIComponent(searchTerms.join(' '))}`;
+  }
   
   // Add timeline filter if specified
   if (timeline) {

@@ -70,7 +70,13 @@ export default function JobSearchForm() {
 
   const onSubmit = (data: FormData) => {
     try {
+      console.log("Form data submitted:", data);
+      console.log("Selected sites:", data.selectedSites);
+      console.log("Selected sites length:", data.selectedSites.length);
+      
       const searchUrl = buildGoogleSearchUrl(data);
+      console.log("Generated search URL:", searchUrl);
+      
       const newWindow = window.open(searchUrl, '_blank', 'noopener,noreferrer');
       if (newWindow) {
         newWindow.opener = null;
@@ -81,6 +87,7 @@ export default function JobSearchForm() {
         description: "Google search results opened in a new tab",
       });
     } catch (error) {
+      console.error("Search error:", error);
       toast({
         title: "Error",
         description: "Failed to build search query. Please check your inputs.",
